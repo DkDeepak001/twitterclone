@@ -1,12 +1,20 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./slices/loginModal";
 import RegModalReducer from "./slices/registerModal";
+import { twitterApi } from "./slices/apiSlices/apiSlice1";
+
+const rootReducer = combineReducers({
+  login: counterReducer,
+  register: RegModalReducer,
+  [twitterApi.reducerPath]: twitterApi.reducer,
+});
 
 export const store = configureStore({
-  reducer: {
-    login: counterReducer,
-    register: RegModalReducer,
-  },
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(twitterApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

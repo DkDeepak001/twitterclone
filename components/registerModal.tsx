@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Input from "./sideBar/input";
 import Modal from "./sideBar/modal";
 import { onOpen } from "@/slices/loginModal";
+import { useRegisterUserMutation } from "@/slices/apiSlices/apiSlice1";
+import { signIn } from "next-auth/react";
 
 const RegModal = () => {
   let dispatch = useDispatch();
@@ -18,14 +20,14 @@ const RegModal = () => {
   const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const [callSignIn, { data }] = useRegisterUserMutation();
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
-      console.log("email", email);
-      console.log("password", password);
-      console.log("username", username);
-      console.log("name", name);
 
+      await callSignIn({ name, email, password, username });
+
+      signIn("credentials", { email, password });
       dispatch(onClose());
     } catch (err) {
       console.log("err", err);
