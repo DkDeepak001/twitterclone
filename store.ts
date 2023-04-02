@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./slices/loginModal";
+import RegModalReducer from "./slices/registerModal";
 
 export const store = configureStore({
   reducer: {
     login: counterReducer,
+    register: RegModalReducer,
   },
 });
 
