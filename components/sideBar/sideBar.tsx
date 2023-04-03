@@ -5,9 +5,13 @@ import { BiLogOut } from "react-icons/bi";
 import SideBarLogo from "./sideBarLogo";
 import SideBarItem from "./sideBarItem";
 import SideBarTweetBtn from "./sideBarTweetBtn";
-import { IconType } from "react-icons";
+import { useCheckCurrentUserQuery } from "@/slices/apiSlices/apiSlice1";
+import { signOut } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { onOpen } from "@/slices/loginModal";
 
 const SideBar = () => {
+  let dispatch = useDispatch();
   const items = [
     {
       label: "Home",
@@ -18,14 +22,18 @@ const SideBar = () => {
       label: "Notification",
       href: "/notification",
       icon: BsBellFill,
+      auth: true,
     },
 
     {
       label: "Profile",
       href: "/user",
       icon: FaUser,
+      auth: true,
     },
   ];
+  const { data: currentUser } = useCheckCurrentUserQuery({});
+
   return (
     <div className="col-span-1 h-full pr-4 md:pr-6">
       <div className="flex flex-col items-end">
@@ -37,9 +45,16 @@ const SideBar = () => {
               href={item.href}
               label={item.label}
               icon={item.icon}
+              auth={item.auth}
             />
           ))}
-          <SideBarItem label="Logout" icon={BiLogOut} href="/logout" />
+          {currentUser && (
+            <SideBarItem
+              label="Logout"
+              icon={BiLogOut}
+              onClick={() => signOut()}
+            />
+          )}
           <SideBarTweetBtn />
         </div>
       </div>
