@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Input from "./sideBar/input";
 import Modal from "./sideBar/modal";
 import { onOpen } from "@/slices/registerModal";
+import { signIn } from "next-auth/react";
 
 const LoginModal = () => {
   let dispatch = useDispatch();
@@ -17,9 +18,9 @@ const LoginModal = () => {
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
-      console.log("email", email);
-      console.log("password", password);
-
+      console.log(email, password);
+      const user = await signIn("credentials", { email, password });
+      console.log("user", user);
       dispatch(onClose());
     } catch (err) {
       console.log("err", err);

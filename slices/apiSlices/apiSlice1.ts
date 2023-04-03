@@ -10,9 +10,16 @@ export const twitterApi = createApi({
         body: { name, email, password, username },
       }),
     }),
+
+    checkCurrentUser: builder.query({
+      query: ({}) => ({
+        url: "api/currentUser",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
 // Export hooks for usage in function components, which are
 // auto-generated based on the defined endpoints
-export const { useRegisterUserMutation } = twitterApi;
+export const { useRegisterUserMutation, useCheckCurrentUserQuery } = twitterApi;

@@ -5,7 +5,7 @@ interface loginModal {
 }
 
 const initialState: loginModal = {
-  isOpen: true,
+  isOpen: false,
 };
 
 export const loginModalSlice = createSlice({
