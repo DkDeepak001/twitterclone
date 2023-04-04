@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./slices/loginModal";
 import RegModalReducer from "./slices/registerModal";
+import editReducer from "./slices/editModal";
 import { twitterApi } from "./slices/apiSlices/apiSlice1";
 
 const rootReducer = combineReducers({
   login: counterReducer,
   register: RegModalReducer,
+  edit: editReducer,
   [twitterApi.reducerPath]: twitterApi.reducer,
 });
 

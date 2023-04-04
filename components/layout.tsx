@@ -5,7 +5,6 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  console.log(children);
   return (
     <div className="h-screen bg-blacksss">
       <div className="container h-full mx-auto xl:px-30 max-w-6xl">

@@ -29,7 +29,6 @@ const SideBarItem: React.FC<SideBarItemProps> = ({
     if (onClick) {
       return onClick();
     }
-    console.log(auth, currentUser);
     if (auth && !currentUser) {
       dispatch(onOpen());
     } else if (href) {
