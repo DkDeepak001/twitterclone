@@ -9,6 +9,7 @@ import {
 import { useDispatch } from "react-redux";
 import { onOpen as openLogin } from "@/slices/loginModal";
 import { onOpen as opneReg } from "@/slices/registerModal";
+import { ClipLoader } from "react-spinners";
 
 interface FormProps {
   placeholder: string;
@@ -18,7 +19,8 @@ interface FormProps {
 
 const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
   let dispath = useDispatch();
-  const { data: currentUser } = useCheckCurrentUserQuery({});
+  const { data: currentUser, isLoading: currentUserLoading } =
+    useCheckCurrentUserQuery({});
   const [createPost] = useCreatePostMutation();
   const [body, setBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +38,12 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
       setIsLoading(false);
     }
   };
+  if (currentUserLoading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ClipLoader color="lightblue" size={80} />
+      </div>
+    );
 
   return (
     <div className="border-b-[1px] border-neutral-800 px-5 py-2">
