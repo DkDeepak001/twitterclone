@@ -11,6 +11,7 @@ const User = () => {
   const router = useRouter();
   const { userId } = router.query;
   const { data, isLoading } = useFetchUserDetailsQuery(userId as String);
+  console.log(data);
   if (isLoading)
     return (
       <div className="flex justify-center items-center h-full">

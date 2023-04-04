@@ -19,12 +19,12 @@ const SideBar = () => {
       href: "/",
       icon: BsHouseFill,
     },
-    {
-      label: "Notification",
-      href: "/notification",
-      icon: BsBellFill,
-      auth: true,
-    },
+    // {
+    //   label: "Notification",
+    //   href: "/notification",
+    //   icon: BsBellFill,
+    //   auth: true,
+    // },
 
     {
       label: "Profile",
