@@ -5,12 +5,12 @@ import { useFetchUserDetailsQuery } from "@/slices/apiSlices/apiSlice1";
 import { ClipLoader } from "react-spinners";
 import Userprofile from "@/components/user/Userprofile";
 import UserBio from "@/components/user/userBio";
+import PostFeed from "@/components/post/postFeed";
 
 const User = () => {
   const router = useRouter();
   const { userId } = router.query;
   const { data, isLoading } = useFetchUserDetailsQuery(userId as String);
-  console.log(data);
   if (isLoading)
     return (
       <div className="flex justify-center items-center h-full">
@@ -33,6 +33,7 @@ const User = () => {
         followers={data?.followersCount || 0}
         createdAt={data?.createdAt}
       />
+      <PostFeed myPost userId={userId as string} />
     </div>
   );
 };

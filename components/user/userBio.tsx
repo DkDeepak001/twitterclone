@@ -3,7 +3,11 @@ import { BiCalendar } from "react-icons/bi";
 import { format } from "date-fns";
 
 import Button from "../button";
-import { useCheckCurrentUserQuery } from "@/slices/apiSlices/apiSlice1";
+import {
+  useCheckCurrentUserQuery,
+  useFollowUserMutation,
+  useUnfollowUserMutation,
+} from "@/slices/apiSlices/apiSlice1";
 import { useDispatch } from "react-redux";
 import { onOpen } from "@/slices/editModal";
 
@@ -29,6 +33,21 @@ const UserBio: React.FC<UserBioProps> = ({
   const { data: currentUser } = useCheckCurrentUserQuery({});
   const dispatch = useDispatch();
 
+  const [follow] = useFollowUserMutation({});
+  const [unfollow] = useUnfollowUserMutation({});
+
+  const followUser = async () => {
+    try {
+      if (!currentUser?.followingId.includes(userId)) {
+        await follow({ currentUser: currentUser?.id, userId });
+      } else {
+        await unfollow({ currentUser: currentUser?.id, userId });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const createdAtRes = () => {
     if (!createdAt) {
       return null;
@@ -50,10 +69,10 @@ const UserBio: React.FC<UserBioProps> = ({
         ) : (
           <Button
             secondary
-            label="Follow"
-            onClick={() => {
-              console.log("Follow");
-            }}
+            label={
+              currentUser?.followingId.includes(userId) ? "Unfollow" : "Follow"
+            }
+            onClick={followUser}
           />
         )}
       </div>

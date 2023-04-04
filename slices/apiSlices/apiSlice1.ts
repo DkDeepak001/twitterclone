@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const twitterApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/" }),
-  tagTypes: ["profile"],
+  tagTypes: ["profile", "post"],
   endpoints: (builder) => ({
     registerUser: builder.mutation({
       query: ({ name, email, password, username }) => ({
@@ -17,6 +17,7 @@ export const twitterApi = createApi({
         url: "api/currentUser",
         method: "GET",
       }),
+      providesTags: ["profile"],
     }),
 
     getAlluser: builder.query({
@@ -41,6 +42,39 @@ export const twitterApi = createApi({
       }),
       invalidatesTags: ["profile"],
     }),
+
+    createPost: builder.mutation({
+      query: ({ body, userId }) => ({
+        url: "api/post",
+        method: "POST",
+        body: { body, userId },
+      }),
+      invalidatesTags: ["post"],
+    }),
+
+    getAllPost: builder.query({
+      query: ({ url }) => ({
+        url,
+        method: "GET",
+      }),
+      providesTags: ["post"],
+    }),
+    followUser: builder.mutation({
+      query: ({ currentUser, userId }) => ({
+        url: "api/follow",
+        method: "POST",
+        body: { userId, currentUser },
+      }),
+      invalidatesTags: ["profile"],
+    }),
+    unfollowUser: builder.mutation({
+      query: ({ currentUser, userId }) => ({
+        url: "api/follow",
+        method: "DELETE",
+        body: { userId, currentUser },
+      }),
+      invalidatesTags: ["profile"],
+    }),
   }),
 });
 
@@ -52,4 +86,8 @@ export const {
   useGetAlluserQuery,
   useFetchUserDetailsQuery,
   useUpdateUserProfileMutation,
+  useCreatePostMutation,
+  useGetAllPostQuery,
+  useFollowUserMutation,
+  useUnfollowUserMutation,
 } = twitterApi;
