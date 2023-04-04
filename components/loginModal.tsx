@@ -18,9 +18,7 @@ const LoginModal = () => {
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
-      console.log(email, password);
       const user = await signIn("credentials", { email, password });
-      console.log("user", user);
       dispatch(onClose());
     } catch (err) {
       console.log("err", err);

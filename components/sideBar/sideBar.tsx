@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { onOpen } from "@/slices/loginModal";
 
 const SideBar = () => {
+  const { data: currentUser } = useCheckCurrentUserQuery({});
   let dispatch = useDispatch();
   const items = [
     {
@@ -27,12 +28,11 @@ const SideBar = () => {
 
     {
       label: "Profile",
-      href: "/user",
+      href: `/users/${currentUser?.id}`,
       icon: FaUser,
       auth: true,
     },
   ];
-  const { data: currentUser } = useCheckCurrentUserQuery({});
 
   return (
     <div className="col-span-1 h-full pr-4 md:pr-6">
