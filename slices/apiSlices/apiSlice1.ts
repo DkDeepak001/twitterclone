@@ -75,6 +75,22 @@ export const twitterApi = createApi({
       }),
       invalidatesTags: ["profile"],
     }),
+    likePost: builder.mutation({
+      query: ({ currentUser, postId }) => ({
+        url: "api/like",
+        method: "POST",
+        body: { postId, currentUser },
+      }),
+      invalidatesTags: ["post"],
+    }),
+    unLikePost: builder.mutation({
+      query: ({ currentUser, postId }) => ({
+        url: "api/like",
+        method: "DELETE",
+        body: { postId, currentUser },
+      }),
+      invalidatesTags: ["post"],
+    }),
   }),
 });
 
@@ -90,4 +106,6 @@ export const {
   useGetAllPostQuery,
   useFollowUserMutation,
   useUnfollowUserMutation,
+  useLikePostMutation,
+  useUnLikePostMutation,
 } = twitterApi;
