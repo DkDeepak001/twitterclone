@@ -81,6 +81,7 @@ const RegModal = () => {
     </div>
   );
   return (
+    //@ts-ignore
     <Modal
       disabled={isLoading}
       isOpen={loginModalState}

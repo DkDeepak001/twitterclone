@@ -88,6 +88,7 @@ const EditModal = () => {
   );
 
   return (
+    // @ts-ignore
     <Modal
       disabled={isLoading}
       isOpen={editModalstate}

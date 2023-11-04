@@ -11,7 +11,7 @@ interface ModalProps {
   actionLabel: string;
   disabled?: boolean;
 }
-const Modal: React.FC<ModalProps> = ({
+const Modal = ({
   isOpen,
   onClose,
   onSubmit,
@@ -20,7 +20,7 @@ const Modal: React.FC<ModalProps> = ({
   footer,
   actionLabel,
   disabled,
-}) => {
+}: ModalProps) => {
   const handleClose = () => {
     if (disabled) return;
     onClose();
