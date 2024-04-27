@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const twitterApi = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://twitterclone-indol.vercel.app/" }),
   tagTypes: ["profile", "post"],
   endpoints: (builder) => ({
     registerUser: builder.mutation({
@@ -13,7 +13,7 @@ export const twitterApi = createApi({
     }),
 
     checkCurrentUser: builder.query({
-      query: ({}) => ({
+      query: ({ }) => ({
         url: "api/currentUser",
         method: "GET",
       }),
@@ -21,7 +21,7 @@ export const twitterApi = createApi({
     }),
 
     getAlluser: builder.query({
-      query: ({}) => ({
+      query: ({ }) => ({
         url: "api/getAllUser",
         method: "GET",
       }),
